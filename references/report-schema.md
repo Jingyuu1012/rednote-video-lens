@@ -1,59 +1,63 @@
-# 爆款视频拆解报告
+# 爆款视频拆解报告｜Viral Video Breakdown Schema
 
-Use this schema for a deep single-video or comparative report. Omit empty sections only when the source cannot support them, and state the evidence gap.
+默认用中文输出。用户明确要求其他语言时再切换。单条视频和多视频对标都使用本结构；只有证据无法支撑时才省略章节，并说明缺失的证据。
 
 ## 1. 视频与证据
 
-- Original URL, title, creator, publish date, duration.
-- Likes, collects, comments, shares, and author-baseline multiplier when available.
-- Evidence inventory: transcript source, inspected frame timestamps, comment pages, and unavailable inputs.
+- 原始链接、标题、账号、发布时间和视频时长。
+- 可获取时列出点赞、收藏、评论、分享，以及相对账号日常基线的倍数。
+- 证据清单：逐字稿来源、已检查的关键帧时间、评论页数，以及无法获取的输入。
 
 ## 2. 结论先行
 
-- One-sentence viral formula.
-- Three strongest observed drivers.
-- Confidence level and the main limitation.
+- 一句话总结内容公式。
+- 三个最强、且有证据支持的传播驱动因素。
+- 结论置信度和最主要的限制。
 
 ## 3. 前三秒钩子
 
-Report the exact opening words when available, the first visual state, the promise or information gap, target audience, emotional trigger, and why a viewer may continue. Keep causal language explicitly inferential.
+尽量给出准确的开场原话、第一画面、承诺或信息差、目标受众和情绪触发，并解释观众可能继续观看的原因。所有因果判断都必须明确属于推断。
 
 ## 4. 默认逐段拆解表
 
-For every single-video breakdown, use this table as the primary deliverable:
+每次拆解单条视频，都以这张表为主要结果：
 
 | 时间 | 视频逐字稿 | 视频结构 | 钩子 / 留存机制 | 关键帧 | 画面描述 | 视频里的提示词 |
 |---|---|---|---|---|---|---|
 
-- Use roughly 8–12 rows for a typical 30–120 second video, grouping adjacent subtitle cues into coherent content beats. Adapt the count when the structure genuinely needs more or fewer rows.
-- Preserve the complete spoken transcript across the table in chronological order. Do not silently omit connective lines merely to shorten the report.
-- Ground timestamps in the subtitle track or inspected frames. Do not invent second-level precision.
-- In `视频结构`, name the beat's role: opening hook, setup, proof, contrast, escalation, payoff, CTA, transition, or close.
-- In `钩子 / 留存机制`, distinguish the observed device from the inferred effect. Examples include information gap, specificity, novelty, pattern interrupt, visual proof, progress marker, or open loop.
-- In `关键帧`, embed one representative inspected frame when local rendering is available; otherwise give its exact timestamp. The frame must support the row's visual claim.
-- In `画面描述`, report only inspected composition, subject, action, setting, edit, and visual contrast.
-- In `视频里的提示词`, capture useful on-screen text such as Day/location labels, prices, product names, features, supers, and CTA. Use `—` when there is no meaningful overlay.
-- Automatic captions may be corrected only when visible burned-in subtitles, audio, or unambiguous context supports the correction. Mark unresolved words with `[听不清]` or `[字幕疑似：…]`.
+- 对典型的 30–120 秒视频，通常使用 8–12 行；把相邻字幕组合成完整内容段落。结构确实需要时可以增减。
+- 按时间顺序保留完整口播，不要为了缩短报告而悄悄删除连接句。
+- 时间必须来自字幕轨或已检查画面，不得编造秒级精度。
+- `视频结构` 写明该段的作用，例如：开场钩子、铺垫、证明、对比、升级、回报、CTA、转场或结尾。
+- `钩子 / 留存机制` 区分“观察到的手法”和“推断的效果”，例如信息差、具体性、新鲜感、模式中断、视觉证明、进度标记或开放循环。
+- `关键帧` 在支持本地图片渲染时必须嵌入实际检查过的代表画面，不能只写文件名；不支持图片时才给出精确时间，并说明限制。
+- `画面描述` 只描述实际检查到的构图、主体、动作、场景、剪辑和视觉反差。
+- `视频里的提示词` 收集有用的画面文字，例如 Day／地点、价格、产品名、卖点、花字和 CTA；没有有效文字时写 `—`。
+- 只有烧录字幕、音频或无歧义上下文能够支持时，才能校正自动字幕；无法确认的词用 `[听不清]` 或 `[字幕疑似：…]` 标注。
 
 ## 5. 文案结构
 
-Analyze setup, conflict, proof, payoff, memorable phrasing, information density, and CTA. Short quotations must come from the transcript and remain brief.
+分析铺垫、冲突、证明、回报、记忆点、信息密度和 CTA。短引用必须来自逐字稿，并保持简短。
 
 ## 6. 视觉与剪辑
 
-Analyze composition, subject scale, on-screen text, visual contrast, shot changes, pattern interrupts, proof shots, and ending loop. Only report features visible in inspected frames or otherwise directly observed.
+分析构图、主体比例、画面文字、视觉反差、镜头切换、模式中断、证明镜头和结尾闭环。只报告已检查画面或其他直接证据能支持的特征。
 
 ## 7. 互动与受众
 
-Interpret collect/like, comment/like, and share/like ratios when denominators are nonzero. Summarize comment themes and distinguish utility, discussion, entertainment, identity, and social-currency signals.
+分母不为零时，计算并解释收藏／点赞、评论／点赞和分享／点赞比率。总结评论主题，并区分实用性、讨论性、娱乐性、身份认同和社交货币信号。
 
 ## 8. 可复用模型
 
-- Structural formula with placeholders.
-- Elements that can be adapted.
-- Elements that are creator-specific or risky to copy.
-- A rewritten hook and outline for the user's niche when requested.
+- 带变量占位符的结构公式。
+- 可以迁移改写的元素。
+- 只属于原作者或直接模仿风险较高的元素。
+- 用户要求时，为其赛道改写钩子与大纲。
 
 ## 9. 多视频共性
 
-For comparisons, first show meaningful differences, then synthesize patterns shared by at least two sources. Do not call a one-off trait a pattern.
+进行多视频对标时，先列出有意义的差异，再总结至少两个来源共同出现的模式；单一视频的偶然特征不能称为“规律”。
+
+## English column mapping
+
+`时间` = Time · `视频逐字稿` = Verbatim transcript · `视频结构` = Video structure · `钩子 / 留存机制` = Hook / retention device · `关键帧` = Keyframe · `画面描述` = Visual description · `视频里的提示词` = On-screen text
