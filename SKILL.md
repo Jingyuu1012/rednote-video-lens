@@ -1,12 +1,12 @@
 ---
 name: rednote-video-lens
-description: Analyze Xiaohongshu/RedNote videos from a keyword, full share URL, or xhslink short URL without manual uploads, producing a timestamped transcript/structure/hook/keyframe table by default. Use for 小红书视频拆解, 对标视频研究, hook/pacing/visual/transcript analysis, or extracting reusable content patterns. This is a read-only research workflow; do not use it for publishing or engagement actions.
+description: 从关键词、小红书完整分享链接或 xhslink 短链接自动获取并拆解视频，无需用户手动上传；默认生成含时间、逐字稿、结构、钩子、真实关键帧、画面描述和画面提示词的中文表格。Use for 小红书视频拆解、爆款视频分析、对标研究, hook/pacing/visual/transcript analysis, or reusable content patterns. Read-only; do not use for publishing or engagement actions.
 license: MIT
 ---
 
 # RedNote Video Lens
 
-Accept either a Xiaohongshu share URL or a keyword. Fetch the accessible source material automatically, then ground the analysis in interaction data, transcript evidence, and inspected video frames. Do not ask the user to upload the video unless every authorized URL-based route fails.
+Accept either a Xiaohongshu share URL or a keyword. Fetch the accessible source material automatically, then ground the analysis in interaction data, transcript evidence, and inspected video frames. Do not ask the user to upload the video unless every authorized URL-based route fails. Default to Chinese for Xiaohongshu requests unless the user asks for another language.
 
 ## Local tools
 
@@ -50,7 +50,7 @@ py -3.9 "<skill-dir>\scripts\extract_keyframes.py" "<video-path>" --output "<wor
 
 4. Inspect the opening frames at 0, 1, and 3 seconds plus representative middle, climax, and closing frames. Do not describe shots, edits, subtitles, products, people, or colors that were not actually inspected.
 5. Use transcript timestamps and frame timestamps to reconstruct the sequence. Group the video into coherent content beats rather than making one row per subtitle cue. Preserve the complete spoken transcript across the rows.
-6. For each beat, choose a representative frame that proves the visual claim. When local image rendering is supported, stage selected frames in the user-facing output area and embed them in the final table; otherwise provide the exact timestamp.
+6. For each beat, choose a representative frame that proves the visual claim. When local image rendering is supported, stage selected frames in the user-facing output area and embed the actual image in the final table; a filename alone is not sufficient. Otherwise provide the exact timestamp and state that image rendering is unavailable.
 
 ## Analysis standard
 
@@ -77,4 +77,4 @@ Never present platform folklore as an established algorithm rule. Attribute caus
 
 ## Completion
 
-Return the analysis inline unless the user asks for a saved report. Include source URLs, evidence gaps, and a concise reusable template. For multiple videos, synthesize shared patterns only after reporting the meaningful differences between them.
+Return the analysis inline unless the user asks for a saved report. For Xiaohongshu requests, use Chinese field names and Chinese analysis by default while preserving brand names and quoted source text accurately. Include source URLs, evidence gaps, and a concise reusable template. For multiple videos, synthesize shared patterns only after reporting the meaningful differences between them.

@@ -1,48 +1,61 @@
-# RedNote Video Lens
+# RedNote Video Lens｜小红书视频透镜
 
-RedNote Video Lens is an evidence-first Agent Skill for Codex and Claude Code. It analyzes Xiaohongshu/RedNote videos without asking the user to upload the source video manually.
+[中文介绍](#中文介绍) · [English introduction](#english-introduction) · [安装](#安装--install)
 
-Maintained by [@Jingyuu1012](https://github.com/Jingyuu1012).
+由 [@Jingyuu1012](https://github.com/Jingyuu1012) 维护。
 
-Given a keyword, full Xiaohongshu share URL, or `xhslink.com` short URL, it prepares public metadata, platform subtitles when available, a local evidence copy of the video, timeline keyframes, and pacing signals. Its default deliverable is a timestamped table containing:
+## 中文介绍
 
-| Time | Verbatim transcript | Video structure | Hook / retention device | Keyframe | Visual description | On-screen text |
+RedNote Video Lens 是一个适用于 Codex 与 Claude Code 的证据型 Agent Skill。你只要发送小红书完整分享链接、`xhslink.com` 短链接或关键词，它就会自动准备公开数据、平台字幕、视频证据副本、时间轴关键帧与剪辑节奏数据，不需要你手动下载或上传视频。
+
+默认结果是一张逐段拆解表，包含：
+
+| 时间 | 视频逐字稿 | 视频结构 | 钩子 / 留存机制 | 关键帧 | 画面描述 | 视频里的提示词 |
 |---|---|---|---|---|---|---|
 
-The analysis stays grounded in evidence that was actually retrieved and inspected. Unavailable metrics, uncertain transcript wording, and inaccessible comment themes are marked instead of guessed.
+所有判断都基于实际获取并检查过的证据。无法读取的互动数据、听不清的字幕和未获取的评论主题会明确标注，不会猜测。
 
-## Result you can expect
+## English introduction
 
-A completed report starts with a concise performance snapshot, followed by the evidence table, an explanation of why the structure works, its limitations, and a reusable content formula.
+RedNote Video Lens is an evidence-first Agent Skill for Codex and Claude Code. Give it a Xiaohongshu/RedNote share URL, an `xhslink.com` short URL, or a keyword; it prepares public metadata, available platform subtitles, a local evidence copy of the video, inspected keyframes, and pacing signals without asking the user to upload the source video manually.
 
-Example performance snapshot:
+The default deliverable is the same seven-column timeline shown above. Reports distinguish observed evidence from inference and mark unavailable inputs instead of inventing them.
 
-```text
-Duration: 52.4 seconds
-Public snapshot: 2,430 likes · 1,120 collects · 185 comments · 640 shares
-Collect-to-like ratio: 46.1%
-Detected cuts: 38 · Median shot interval: 1.1 seconds
-Evidence gaps: author baseline unavailable; comment themes not fetched
-```
+## 真实案例：IOI 奢华酒店套餐
 
-Example table — the content below is synthetic and does not reproduce a creator's video:
+下面不是占位符，而是使用 RedNote Video Lens 实际提取并检查的案例。
 
-| Time | Verbatim transcript | Video structure | Hook / retention device | Keyframe | Visual description | On-screen text |
+- 原视频：[🇲🇾IOI奢华酒店套餐｜十一黄金周度假攻略✨](https://www.xiaohongshu.com/discovery/item/68cd024d0000000007028131)
+- 发布账号：I0I酒店集团
+- 时长：80.07 秒
+- 公开互动快照（2026-09-04 获取）：3,442 赞 · 266 收藏 · 11 评论 · 41 分享
+- 剪辑节奏：检测到 57 次切换；中位镜头间隔 1.25 秒
+- 说明：逐字稿以平台字幕为主，并结合画面文字校正；无法可靠确认的内容标为 `[听不清]`。
+
+> 关键帧仅作为评论、研究及报告格式示例，版权归原视频权利人所有；本仓库不提供或再分发原视频。
+
+| 时间 | 视频逐字稿 | 视频结构 | 钩子 / 留存机制 | 关键帧 | 画面描述 | 视频里的提示词 |
 |---|---|---|---|---|---|---|
-| 00:00–00:03 | “Most people don't know this place exists.” | Opening promise | Information gap and local relevance | `frame_01_0000s.jpg` | Presenter enters a large warehouse; wide shot proves scale immediately. | “90% of locals don't know” |
-| 00:03–00:12 | “This entire aisle is one product category.” | Scale proof | Abundance, fast product reveals, escalating specificity | `frame_04_0006s.jpg` | Close-ups alternate with wide aisle shots; cuts occur roughly once per second. | Product category and quantity labels |
-| 00:12–00:31 | “The brands you see in supermarkets are supplied from here.” | Credibility and recognition | Familiar-brand recognition plus staff confirmation | `frame_07_0020s.jpg` | Interview framing alternates with recognizable packaging. | Distributor identity and retail channels |
-| 00:31–00:47 | “Here is the most unusual item we found.” | Novelty climax | Pattern interrupt and product surprise | `frame_10_0038s.jpg` | Tight product demonstration with reaction shot. | Unusual ingredient or feature |
-| 00:47–00:52 | “Save this address for your next visit.” | Payoff and CTA | Location reveal closes the opening information gap | `frame_13_0051s.jpg` | Final location card remains visible long enough to save. | Store name, address, opening hours |
+| 00:00–00:07 | “谁说度假一定要搭飞机？我也是才知道吉隆坡隔壁就有一个偷懒圣地……三天两夜吃好住好还能逛街。” | 开场钩子＋利益承诺 | 反常识提问、近距离惊喜、一次承诺住宿／餐饮／购物三种收益 | <img src="assets/examples/ioi-hotel/01-hook-1s.jpg" width="150" alt="博主在酒店户外提出度假反问"> | 人物正面出场，阳光与度假村环境立即建立轻松旅行氛围。 | “谁说度假一定要搭飞机？” |
+| 00:07–00:15 | “第一天我住的是心仪的 Palm Garden 度假村。虽然是双床房，但每张床都超宽敞，阳台也很大。” | Day 1 入住＋房型证明 | 先报地点，再用床宽、阳台等具体细节兑现住宿价值 | <img src="assets/examples/ioi-hotel/02-day1-room-10s.jpg" width="150" alt="Palm Garden Hotel 双床房与毛巾造型"> | 镜头对准整洁床铺与毛巾造型，用房间实景代替空泛形容。 | “Day1 · Palm Garden Hotel”“虽然是双床房” |
+| 00:15–00:22 | “早上这么美的阳光就很疗愈了。这儿的设施有儿童游乐区、泳池和健身房，不管亲子出游还是情侣放松，都能玩得舒服。” | 设施展示＋受众扩展 | 设施清单提升信息密度，同时点名亲子与情侣两类人群 | <img src="assets/examples/ioi-hotel/03-audience-pool-19.5s.jpg" width="150" alt="棕榈树、高楼与酒店泳池"> | 蓝色泳池、棕榈树和酒店建筑形成度假感，画面直接支撑“亲子／情侣放松”。 | “不管亲子出游还是情侣放松” |
+| 00:22–00:28 | “国内宵夜是撸串儿，马来西亚就是来顿榴莲大餐了。搭配本地小吃，香得我头发都在冒烟儿，快乐值拉满。” | 本地特色插曲 | 中马宵夜对比＋榴莲近景制造味觉想象与新鲜感 | <img src="assets/examples/ioi-hotel/04-durian-24.5s.jpg" width="150" alt="工作人员现场打开榴莲"> | 手套开榴莲的动作特写是一种过程型证明，比单纯成品镜头更有停留感。 | “马来西亚就是来顿榴莲大餐了” |
+| 00:28–00:41 | “晚上我们吃了度假村里的娘惹餐厅，不仅可以换上传统娘惹服拍照打卡，还有这个高级环境……菜品也很精致，[一道菜名听不清]还是第一次见。” | 文化体验＋餐饮升级 | 换装、打卡、环境、菜品连续加码，让餐厅段落不只是探店 | <img src="assets/examples/ioi-hotel/05-nyonya-30.75s.jpg" width="150" alt="Madam Lee 娘惹餐厅换装打卡区域"> | 人物走入带有娘惹装饰的体验区，地点标注和动作共同证明可打卡性。 | “Madam Lee 娘惹餐”“不仅可以换上传统娘惹服” |
+| 00:41–00:50 | “四周城市灯光点点，美得像电影画面。一日之计在于晨，我真的太爱酒店的自助早餐了，而且这边更丰富一些。” | 夜景转场＋早餐证明 | 从夜景切到早餐形成时间推进；大量食物陈列强化“丰富” | <img src="assets/examples/ioi-hotel/06-breakfast-44.75s.jpg" width="150" alt="酒店自助早餐甜点与面包台"> | 早餐台以多层陈列、甜点和面包构成丰盛感，镜头信息量高。 | “我真的太爱酒店的自助早餐了” |
+| 00:50–01:00 | “吃过早饭我就换去附近的艾美酒店。这家更偏现代商务风，大床房间简约大气……行政走廊也是商务人士的必去之处，楼下就是商场。” | Day 2 换酒店＋定位差异 | 第二家酒店切换重启注意力，并用“现代商务风”与第一家形成对比 | <img src="assets/examples/ioi-hotel/07-le-meridien-50.5s.jpg" width="150" alt="Le Meridien 现代商务风大床房"> | 人物站在大床房中，白色空间与简洁软装强化现代商务定位。 | “Day2 · Le Meridien 艾美酒店”“这家更偏现代商务风” |
+| 01:00–01:09 | “我们点了一桌经典菜，口味在线。下午赶上了酒店泳池的周末活动，好像只有周五和周六才有；来杯冰饮玩水，有种一秒穿越到海岛的错觉。” | 餐饮过渡＋周末活动高潮 | “仅周五和周六”带来稀缺信息；明亮活动布景形成强视觉变化 | <img src="assets/examples/ioi-hotel/08-pool-event-62.5s.jpg" width="150" alt="Le Meridien 黄色泳池周末活动布景"> | 黄色主题打卡区、泳圈和礼袋让画面从客房的低饱和色切换到高饱和度。 | “赶上了酒店泳池的周末活动” |
+| 01:09–01:16 | “最后一天睡到自然醒，顺路去了蒲种福朋喜来登酒店吃融合菜，午餐悠闲地收个尾。下午想要逛街的可以跟前台说一声。” | Day 3 收尾＋餐饮拼贴 | 四宫格一次展示多道菜，以高信息密度完成最后一天总结 | <img src="assets/examples/ioi-hotel/09-day3-food-72s.jpg" width="150" alt="Four Points by Sheraton Puchong 融合菜四宫格"> | 四宫格同时展示面食、饮品、沙拉与汉堡，快速传递餐饮丰富度。 | “Day3 · Four Points by Sheraton Puchong”“吃融合菜午餐” |
+| 01:16–01:20 | “他们会帮忙预约小车车，可以直达全马最大的 shopping mall，吃喝玩乐一站搞定。” | 便利性回收＋结尾 CTA | 用接驳车与商场作为具体收尾利益点，回应开场“还能逛街” | <img src="assets/examples/ioi-hotel/10-shuttle-76s.jpg" width="150" alt="IOI Resort City 路牌与接驳路线画面"> | 行车视角拍到 IOI Resort City 标识，把抽象的交通便利落到真实地点。 | “预约小车车可以直达（是 Van 哦）” |
 
-When local image rendering is available, the Keyframe column contains the inspected frame itself rather than only the filename. The final explanation also distinguishes evidence from inference and identifies improvements such as missing price proof, unclear buying rules, or a weak CTA.
-
-Typical reusable formula:
+### 这条视频的可复用公式
 
 ```text
-Familiar analogy → information gap → scale proof → recognizable examples
-→ authority confirmation → novelty climax → exact location/value payoff → CTA
+反常识提问 → 3天2夜总利益 → Day 1 度假与本地体验
+→ Day 2 酒店风格切换与限定活动 → Day 3 餐饮收尾
+→ 接驳车／商场便利性回收开场承诺
 ```
+
+英文摘要：The real case above shows the expected output: a public performance snapshot, a complete timestamped transcript, structural roles, retention devices, inspected keyframes, grounded visual descriptions, and captured on-screen text.
 
 ## What is original here
 
@@ -61,7 +74,7 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for dependency attribution.
 
 The anonymous one-link workflow does not read browser cookies. If public access fails and a logged-in browser route is needed, the skill stops and requests permission first.
 
-## Install
+## 安装 / Install
 
 ### Codex
 
