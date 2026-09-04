@@ -1,0 +1,6 @@
+interface:
+  display_name: "RedNote Video Lens"
+  short_description: "从链接或关键词自动获取素材，透视视频结构、画面、钩子与互动表现"
+  default_prompt: "Use $rednote-video-lens to fetch and analyze a Xiaohongshu or RedNote video without asking me to upload it."
+policy:
+  allow_implicit_invocation: true
