@@ -29,7 +29,7 @@ try:
     from yt_dlp.utils.traversal import traverse_obj
 except ImportError as exc:
     raise SystemExit(
-        "yt-dlp runtime is missing. Install or repair the xiaohongshu-downloader skill in Codex or Claude Code first."
+        "yt-dlp is missing. Install requirements.txt, or install the xiaohongshu-downloader skill in Codex or Claude Code."
     ) from exc
 
 

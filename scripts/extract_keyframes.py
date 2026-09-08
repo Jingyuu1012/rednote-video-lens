@@ -32,7 +32,9 @@ def ffmpeg_executable() -> str:
 
         return get_ffmpeg_exe()
     except (ImportError, RuntimeError) as exc:
-        raise RuntimeError("FFmpeg is unavailable; run scripts/doctor.ps1") from exc
+        raise RuntimeError(
+            "FFmpeg is unavailable; run `python3 scripts/rednote_video_lens.py doctor`"
+        ) from exc
 
 
 def duration_seconds(video: Path, ffmpeg: str) -> float:
