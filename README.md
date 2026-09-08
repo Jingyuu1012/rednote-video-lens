@@ -76,14 +76,32 @@ The anonymous one-link workflow does not read browser cookies. If public access 
 
 ## 安装 / Install
 
+### 已经安装旧版？/ Already installed?
+
+不要再次执行 `git clone`。进入现有目录、拉取新版，再运行设置脚本。zsh 中请使用 `~`，不要写成 `\~`。
+
+Codex on macOS/Linux:
+
+```bash
+cd ~/.codex/skills/rednote-video-lens
+git pull
+bash scripts/setup_macos.sh
+```
+
+Claude Code on macOS/Linux:
+
+```bash
+cd ~/.claude/skills/rednote-video-lens
+git pull
+bash scripts/setup_macos.sh
+```
+
 ### macOS / Linux — Codex
 
 ```bash
 git clone https://github.com/Jingyuu1012/rednote-video-lens.git ~/.codex/skills/rednote-video-lens
 cd ~/.codex/skills/rednote-video-lens
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python scripts/rednote_video_lens.py doctor
+bash scripts/setup_macos.sh
 ```
 
 ### macOS / Linux — Claude Code
@@ -91,9 +109,7 @@ python3 -m venv .venv
 ```bash
 git clone https://github.com/Jingyuu1012/rednote-video-lens.git ~/.claude/skills/rednote-video-lens
 cd ~/.claude/skills/rednote-video-lens
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python scripts/rednote_video_lens.py doctor
+bash scripts/setup_macos.sh
 ```
 
 If `python3` is unavailable on macOS, install Python first. Homebrew users can run `brew install python`. Node.js is only needed for the optional keyword/Redbook workflow.
