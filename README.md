@@ -65,23 +65,49 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for dependency attribution.
 
 ## Requirements
 
+- macOS, Linux, or Windows
 - Codex or Claude Code with personal skills support
-- Windows PowerShell 5.1 or PowerShell 7+
-- Python 3.9 or newer; Python 3.10+ is recommended
-- FFmpeg, or `imageio-ffmpeg` available to Python
-- [`redbook`](https://github.com/lucasygu/redbook) for keyword discovery, comments, and author-baseline analysis
-- A compatible `xiaohongshu-downloader` skill installed under the active product's personal skills directory for media acquisition and fallback transcription
+- Python 3.9 or newer
+- Dependencies in `requirements.txt` (`yt-dlp` and `imageio-ffmpeg`)
+- Optional: [`redbook`](https://github.com/lucasygu/redbook) plus Node.js for keyword discovery, comments, and author-baseline analysis
+- Optional: a compatible `xiaohongshu-downloader` skill for fallback transcription when platform subtitles are unavailable
 
 The anonymous one-link workflow does not read browser cookies. If public access fails and a logged-in browser route is needed, the skill stops and requests permission first.
 
 ## 安装 / Install
 
-### Codex
+### macOS / Linux — Codex
+
+```bash
+git clone https://github.com/Jingyuu1012/rednote-video-lens.git ~/.codex/skills/rednote-video-lens
+cd ~/.codex/skills/rednote-video-lens
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/rednote_video_lens.py doctor
+```
+
+### macOS / Linux — Claude Code
+
+```bash
+git clone https://github.com/Jingyuu1012/rednote-video-lens.git ~/.claude/skills/rednote-video-lens
+cd ~/.claude/skills/rednote-video-lens
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/rednote_video_lens.py doctor
+```
+
+If `python3` is unavailable on macOS, install Python first. Homebrew users can run `brew install python`. Node.js is only needed for the optional keyword/Redbook workflow.
+
+### Windows — Codex
 
 Clone the repository into your personal Codex skills directory:
 
 ```powershell
 git clone https://github.com/Jingyuu1012/rednote-video-lens.git "$env:USERPROFILE\.codex\skills\rednote-video-lens"
+Set-Location "$env:USERPROFILE\.codex\skills\rednote-video-lens"
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe scripts\rednote_video_lens.py doctor
 ```
 
 Install the dependencies listed above, restart or refresh Codex, then run:
@@ -90,12 +116,16 @@ Install the dependencies listed above, restart or refresh Codex, then run:
 Use $rednote-video-lens to analyze this video: <Xiaohongshu URL>
 ```
 
-### Claude Code
+### Windows — Claude Code
 
 Clone the same repository into Claude Code's personal skills directory:
 
 ```powershell
 git clone https://github.com/Jingyuu1012/rednote-video-lens.git "$env:USERPROFILE\.claude\skills\rednote-video-lens"
+Set-Location "$env:USERPROFILE\.claude\skills\rednote-video-lens"
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe scripts\rednote_video_lens.py doctor
 ```
 
 Invoke it directly in Claude Code:
@@ -112,7 +142,32 @@ In either product, you can also ask naturally:
 Analyze this Xiaohongshu video: <URL>
 ```
 
-## Verify the installation
+## 跨平台命令 / Cross-platform commands
+
+The examples below use `.venv/bin/python` on macOS/Linux. On Windows, replace it with `.venv\Scripts\python.exe`.
+
+Verify the installation:
+
+```bash
+.venv/bin/python scripts/rednote_video_lens.py doctor
+```
+
+Prepare a complete evidence pack from a full or short share URL:
+
+```bash
+.venv/bin/python scripts/rednote_video_lens.py prepare \
+  --url "<Xiaohongshu URL>" \
+  --output-dir "./work/sample"
+```
+
+Extract frames from an existing local video:
+
+```bash
+.venv/bin/python scripts/rednote_video_lens.py extract "<video-path>" \
+  --output-dir "./work/frames"
+```
+
+The `.ps1` commands remain available for existing Windows users:
 
 ```powershell
 .\scripts\doctor.ps1

@@ -20,7 +20,7 @@ RedNote Video Lens is an integration and analysis workflow compatible with local
 
 - Project: [`yt-dlp`](https://github.com/yt-dlp/yt-dlp)
 - License: Unlicense
-- Use in this skill: Xiaohongshu public-page extraction through the installed downloader runtime
+- Use in this skill: cross-platform public-page extraction and anonymous media download, either from `requirements.txt` or an installed downloader runtime
 
 ## FFmpeg and imageio-ffmpeg
 

@@ -10,12 +10,14 @@ Accept either a Xiaohongshu share URL or a keyword. Fetch the accessible source 
 
 ## Local tools
 
-- Run Redbook through `scripts/redbook.ps1`; it does not depend on a global `redbook` command.
-- Run the Windows-adapted downloader through `scripts/download.ps1`.
+- Use `scripts/rednote_video_lens.py` as the primary cross-platform entry point on macOS, Linux, and Windows.
+- On macOS/Linux, prefer `<skill-dir>/.venv/bin/python` when it exists; otherwise use `python3`. On Windows, prefer `<skill-dir>\.venv\Scripts\python.exe` when it exists; otherwise use `py -3` or `python`.
+- Run `rednote_video_lens.py doctor` when first used or when dependencies appear broken.
+- Run optional Redbook commands through `rednote_video_lens.py redbook -- <arguments>`; it locates the installed Redbook skill without requiring a global `redbook` command.
+- The `.ps1` files are compatibility wrappers for existing Windows installations and are not required on macOS/Linux.
 - Run `scripts/fetch_public_note.py` first for anonymous page metadata, interaction counts, and platform subtitle tracks when available. It never reads browser cookies.
-- For the normal one-link workflow, run `scripts/prepare_breakdown.ps1`; it combines the anonymous metadata/subtitle fetch, the minimum necessary media download, and keyframe extraction into one command.
+- For the normal one-link workflow, run `rednote_video_lens.py prepare`; it combines the anonymous metadata/subtitle fetch, minimum necessary media download, and keyframe extraction into one command.
 - Run `scripts/extract_keyframes.py` on a downloaded video before making visual or pacing claims.
-- Run `scripts/doctor.ps1` when first used or when dependencies appear broken.
 
 Resolve paths relative to this skill directory. Use a task-local working directory for media and raw JSON. Never print, export, or save browser cookies or security tokens beyond the original share URL supplied by the user.
 
@@ -24,14 +26,14 @@ Resolve paths relative to this skill directory. Use a task-local working directo
 ### Share URL
 
 1. Accept full Xiaohongshu discovery URLs and `xhslink.com` short URLs. The public fetcher expands short URLs before extraction. Preserve the complete resolved URL, including `xsec_token` and `xsec_source` parameters.
-2. Run `scripts/prepare_breakdown.ps1 -Url <url> -OutputDirectory <work-dir>`. This is the default fast path. It runs the public evidence fetch, downloads only the video when a platform subtitle already exists, and extracts timeline frames.
-3. If the orchestrator is unavailable, run `fetch_public_note.py <url> --output <work-dir>/note.json --subtitle-output <work-dir>/platform.srt`, then use `scripts/download.ps1 <url> --output <work-dir>/media --browser none` and extract frames. Prefer the platform source subtitle over OCR when it exists. Treat the helper's counts as a point-in-time public snapshot.
+2. Run `<python> scripts/rednote_video_lens.py prepare --url <url> --output-dir <work-dir>`. This is the default fast path on every supported operating system. Here `<python>` means the skill-local virtual-environment interpreter when installed, otherwise `python3` on macOS/Linux or `py -3` on Windows.
+3. If the orchestrator is unavailable, run `fetch_public_note.py <url> --output <work-dir>/note.json --subtitle-output <work-dir>/platform.srt`, download anonymously with yt-dlp, and run `extract_keyframes.py`. Prefer the platform source subtitle over OCR when it exists. Treat the helper's counts as a point-in-time public snapshot.
 4. Use Redbook `analyze-viral <url> --comment-pages 1 --json` only when comment themes or author-baseline signals materially improve the requested analysis and an authorized logged-in session is available. If access requires local browser login state, explain this and obtain the user's permission before reading it.
 5. If public access fails because the platform requires a session, explain that the next attempt will read the local Chrome login state and obtain the user's permission before retrying with `--browser chrome`. Never request a cookie string.
 
 ### Keyword or niche
 
-1. Use one Redbook search: `search <keyword> --type video --sort popular --json`.
+1. Use one Redbook search through the cross-platform wrapper: `<python> scripts/rednote_video_lens.py redbook -- search <keyword> --type video --sort popular --json`.
 2. Default to three candidate videos unless the user requests a different count. Prefer fresh `webUrl` values returned by search.
 3. Treat popularity as a candidate signal, not proof. Check each candidate with `analyze-viral` sequentially and compare it with the author's baseline when available.
 4. Detail reads are never parallel. For more than five notes, follow the installed Redbook skill's paced research loop and circuit breaker.
@@ -44,8 +46,8 @@ After download:
 2. Prefer a platform source subtitle track. If none exists, use `transcript.txt`; otherwise use the installed `extract-video-subtitles` skill when visible burned-in captions exist. Correct automatic subtitle errors only when the burned-in text, audio, or context supports the correction, and flag unresolved wording.
 3. Extract frames:
 
-```powershell
-py -3.9 "<skill-dir>\scripts\extract_keyframes.py" "<video-path>" --output "<work-dir>\frames"
+```shell
+<python> scripts/rednote_video_lens.py extract "<video-path>" --output-dir "<work-dir>/frames"
 ```
 
 4. Inspect the opening frames at 0, 1, and 3 seconds plus representative middle, climax, and closing frames. Do not describe shots, edits, subtitles, products, people, or colors that were not actually inspected.
